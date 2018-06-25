@@ -1,0 +1,71 @@
+#include <iostream>
+using namespace std;
+
+class Base      
+{
+public:
+	void BaseInit(int pri,int pro,int pub)
+	{
+		_pri = pri;
+		_pro = pro;
+		_pub = pub;
+	}
+
+	void BasePrint()
+	{
+		cout<<"Base _pri = "<<_pri<<"; _pro = "<<_pro<<"; _pub = "<<_pub<<endl;
+	}
+
+private:
+	int _pri;
+protected:
+	int _pro;
+public:
+	int _pub;
+};
+
+class Derived : public Base     
+{
+public:
+	void DerivedInit(int pri,int pro,int pub)
+	{
+		_priD = pri;
+		_proD = pro;
+		_pubD = pub;
+	}
+
+	void DerivedPrint()
+	{
+	cout<<"Derived _priD = "<<_priD<<"_proD = "<<_proD<<"_pubD = "<<_pubD<<endl;
+	}
+
+private:
+	int _priD;
+
+protected:
+	int _proD;
+
+public:
+	int _pubD;
+
+	void Test2()
+	{
+		//_priD = _pri;      //父类私有成员不能在子类中访问
+		 _proD = _pro;       //父类保护成员可以在子类中访问
+		 _pubD = _pub;       //父类共有成员可以在子类中访问
+	}
+};
+
+void Test1()
+{
+	Derived D1;
+	//D1._pri = 10;   //父类中私有成员不能在类外中访问
+	//D1._pro = 20;   //父类中的保护成员不能在类外访问
+	D1._pub = 30;     //父类中的共有成员可以在类外访问
+}
+
+int main()
+{
+	Test1();
+	return 0;
+}
