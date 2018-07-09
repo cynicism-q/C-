@@ -1,0 +1,68 @@
+
+//继承方式保护的protected
+#include <iostream>
+using namespace std;
+
+class Base
+{
+public:
+	void BaseInit(int pub,int pro,int pri)
+	{
+		_pub = pub;
+		_pro = pro;
+		_pri = pri;
+	}
+	void BasePrint()
+	{
+		cout<<"_pub ="<<_pub<<"; _pro ="<<_pro<<"; _pri ="<<_pri<<endl;
+	}
+
+public:
+	int _pub;
+protected:
+	int _pro;
+private:
+	int _pri;
+};
+
+class Derived : protected Base
+{
+public:
+	void DerivedInit(int pub,int pro, int pri)
+	{
+		_pubD = pub;
+		_proD = pro;
+		_priD = pri;
+	}
+
+//测试函数(派生类中测试基类中的那些成员变量可以访问)
+	void test1()
+	{
+		_pub = 10;   //可以访问
+		_pro = 20;	 //可以访问
+		//_pri = 30;	 //不能访问
+	}
+public:
+	int _pubD;
+protected:
+	int _proD;
+private:
+	int _priD;
+};
+
+//测试函数 派生类外进行
+void test2()
+{
+	Derived D2;
+	//D2._pub = 300;
+	//D2._pri = 100;
+	//D2._pro = 200;
+}
+
+int main()
+{
+	Derived D1;
+	D1.test1();
+	test2();
+	return 0;
+}
