@@ -1,0 +1,72 @@
+//private私有继承
+
+#include <iostream>
+using namespace std;
+
+
+class Base
+{
+public:
+	void BaseInit(int pub,int pro,int pri)
+	{
+		_pub = pub;
+		_pro = pro;
+		_pri = pri;
+	}
+
+	void BasePrint()
+	{
+		cout<<"_pub = "<<_pub<<"; _pro = "<<_pro<<"; _pri = "<<_pri<<endl;
+	}
+public:
+	int _pub;
+protected:
+	int _pro;
+private:
+	int _pri;
+};
+
+
+class Derived : private Base
+{
+public:
+	void DerivedInit(int pub,int pro,int pri)
+	{
+		_pubD = pub;
+		_proD = pro;
+		_priD = pri;
+	}
+	void DerivedPrint()
+	{
+		cout<<"_pubD = "<<_pubD<<"; _proD = "<<_proD<<"; _priD = "<<_priD<<endl;
+	}
+
+protected:
+	int _proD;
+private:
+	int _priD;
+public:
+	int _pubD;
+	
+	void test1()
+	{
+		//_pub = 10; 父类共有成员不能在子类访问
+		//_pro = 20; 父类保护成员不能在子类访问
+		//_pri = 30; 父类私有成员不能在子类访问
+	}
+};
+
+void test2()
+{
+	Derived D2;
+	//D2._pri = 100;  父类私有成员不能在子类外访问
+	//D2._pro = 200;  父类保护成员不能在子类外访问
+	//D2._pub = 300;  父类共有成员不能在子类外访问
+}
+int main()
+{
+	Derived D1;
+	D1.test1();
+	test2();
+	return 0;
+}
